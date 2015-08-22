@@ -12,7 +12,7 @@ public class LongToDateFactory {
 		this.date = date;
 	}
 
-	public String getDate(long milliSeconds) {
+	public String getValue(long milliSeconds) {
 		return date.format(new Date(milliSeconds));
 	}
 

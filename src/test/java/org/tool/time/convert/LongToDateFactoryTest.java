@@ -14,9 +14,9 @@ public class LongToDateFactoryTest extends AbstractDateTest {
 	}
 	
 	@Test
-	public void testGetDate() throws Exception {
+	public void testGetValue() throws Exception {
 		String expected = "2001-05-04 10:15:13";
-		String actual   = factory.getDate(df.parse(expected).getTime());
+		String actual   = factory.getValue(df.parse(expected).getTime());
 		assertEquals(expected, actual);
 	}
 }
