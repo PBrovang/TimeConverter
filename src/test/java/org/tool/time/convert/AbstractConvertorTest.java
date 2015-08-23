@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 
 import org.junit.BeforeClass;
 
-public class AbstractDateTest {
+public class AbstractConvertorTest {
 
 	protected static DateFormat df;
 

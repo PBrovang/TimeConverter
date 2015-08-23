@@ -7,13 +7,13 @@ import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 
-public class UnixToDateFactoryTest extends AbstractDateTest {
+public class UnixToDateConvertorTest extends AbstractConvertorTest {
 
-	private UnixToDateFactory factory;
+	private UnixToDateConvertor factory;
 
 	@Before
 	public void setUp() throws Exception {
-		factory = new UnixToDateFactory(df);
+		factory = new UnixToDateConvertor(df);
 	}
 	
 	@Test

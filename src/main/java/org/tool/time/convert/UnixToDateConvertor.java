@@ -3,11 +3,11 @@ package org.tool.time.convert;
 import java.text.DateFormat;
 import java.util.Date;
 
-public class UnixToDateFactory {
+public class UnixToDateConvertor {
 
 	private final DateFormat date;
 
-	public UnixToDateFactory(DateFormat date) {
+	public UnixToDateConvertor(DateFormat date) {
 		super();
 		this.date = date;
 	}

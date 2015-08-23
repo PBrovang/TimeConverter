@@ -5,12 +5,12 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-public class LongToDateFactoryTest extends AbstractDateTest {
-	private LongToDateFactory factory;
+public class LongToDateConvertorTest extends AbstractConvertorTest {
+	private LongToDateConvertor factory;
 	
 	@Before
 	public void setUp() throws Exception {
-		factory = new LongToDateFactory(df);		
+		factory = new LongToDateConvertor(df);		
 	}
 	
 	@Test

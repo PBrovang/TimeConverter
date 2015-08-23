@@ -3,11 +3,11 @@ package org.tool.time.convert;
 import java.text.DateFormat;
 import java.util.Date;
 
-public class LongToDateFactory {
+public class LongToDateConvertor {
 	
 	private final DateFormat date;
 
-	public LongToDateFactory(DateFormat date) {
+	public LongToDateConvertor(DateFormat date) {
 		super();
 		this.date = date;
 	}

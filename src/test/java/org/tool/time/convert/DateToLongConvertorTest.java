@@ -7,12 +7,12 @@ import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 
-public class DateToLongFactoryTest extends AbstractDateTest {
-	private DateToLongFactory factory;
+public class DateToLongConvertorTest extends AbstractConvertorTest {
+	private DateToLongConvertor factory;
 	
 	@Before
 	public void setUp() throws Exception {
-		factory = new DateToLongFactory(df);
+		factory = new DateToLongConvertor(df);
 	}
 	
 	
