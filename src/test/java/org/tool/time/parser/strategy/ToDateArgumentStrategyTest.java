@@ -15,9 +15,9 @@ import org.junit.Test;
 import org.tool.time.parser.ArgumentException;
 import org.tool.time.parser.ConsumeOutput;
 
-public class MillisecondIntoDateArgumentStrategyTest implements ConsumeOutput {
+public class ToDateArgumentStrategyTest implements ConsumeOutput {
 	private static DateFormat df;
-	private MillisecondIntoDateArgumentStrategy strategy;
+	private ToDateArgumentStrategy strategy;
 	private List<Object> actualOutputs;
 	
 	@BeforeClass
@@ -41,7 +41,7 @@ public class MillisecondIntoDateArgumentStrategyTest implements ConsumeOutput {
 	@Before
 	public void setUp() throws Exception {
 		actualOutputs = new ArrayList<>(4);
-		strategy = new MillisecondIntoDateArgumentStrategy("u", this);
+		strategy = new ToDateArgumentStrategy("u", this, new DateMillisecondsFactory());
 	}
 
 	@Test
@@ -60,7 +60,6 @@ public class MillisecondIntoDateArgumentStrategyTest implements ConsumeOutput {
 		String[] arguments = {"-u", "badness"};
 		strategy.consume(0, arguments);
 	}
-
 	
 	@Test
 	public void testConsumeMany() throws Exception {

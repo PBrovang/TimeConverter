@@ -36,6 +36,4 @@ public class DateFormatArgumentStrategy extends AbstractArgumentStrategy {
 	public void setObserver(DateFormatObserver observer) {
 		this.observer = (observer == null ? NULL : observer);
 	}
-	
-	
 }

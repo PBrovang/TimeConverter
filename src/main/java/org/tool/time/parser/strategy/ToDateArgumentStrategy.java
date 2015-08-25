@@ -1,6 +1,6 @@
 package org.tool.time.parser.strategy;
 
-import java.sql.Date;
+import java.util.Date;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,16 +10,18 @@ import org.tool.time.parser.AbstractArgumentStrategy;
 import org.tool.time.parser.ArgumentException;
 import org.tool.time.parser.ConsumeOutput;
 
-public abstract class AbstractDateArgumentStrategy extends AbstractArgumentStrategy implements DateFormatObserver{
+public class ToDateArgumentStrategy extends AbstractArgumentStrategy implements DateFormatObserver{
 
 	private final List<Date> values;
 	private DateFormat dateFormat;
 	private final ConsumeOutput output;
+	private final DateFactory factory;
 	
-	public AbstractDateArgumentStrategy(String symbols, ConsumeOutput output) throws IllegalArgumentException {
+	public ToDateArgumentStrategy(String symbols, ConsumeOutput output, DateFactory factory) throws IllegalArgumentException {
 		super(symbols);
 		this.output = output;
 		values = new ArrayList<>(50);
+		this.factory = factory;
 	}
 
 	@Override
@@ -27,22 +29,11 @@ public abstract class AbstractDateArgumentStrategy extends AbstractArgumentStrat
 		List<String> list = new ArrayList<>(20);
 		list.add(readNextArgument(index, arguments));
 		list.addAll(Arrays.asList(readNextArgumentsUntilFlag(index + 1, arguments)));
-		String text = null;
-		try {
-			for (int i = 0; i < list.size(); i++) {
-				text = list.get(i);
-				values.add(createDate(text));
-			}
-		} catch (NumberFormatException e) {
-			throw getNumberFormatException(text);
-		}
+		for (String value : list) 
+			values.add(factory.createDate(value));
 		process();
 		return values.size();
 	}
-
-	protected abstract ArgumentException getNumberFormatException(String text);
-	
-	protected abstract Date createDate(String text) throws NumberFormatException;
 
 	protected Date[] getValues() {
 		return values.toArray(new Date[values.size()]);
