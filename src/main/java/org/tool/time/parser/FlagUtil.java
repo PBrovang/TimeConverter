@@ -1,6 +1,6 @@
 package org.tool.time.parser;
 
-public class FlagUtil implements FlagConstants{
+public class FlagUtil implements FlagHyphen {
 
 	private static final char[] dashes = { 
 		SOFT_HYPHEN, 

@@ -1,6 +1,6 @@
 package org.tool.time.parser;
 
-public interface FlagConstants {
+public interface FlagHyphen {
 
 	public static final char SOFT_HYPHEN            = '\u00Ad';
 	public static final char HYPHEN_MINUS           = '\u002D';
