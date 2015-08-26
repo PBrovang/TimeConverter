@@ -5,7 +5,7 @@ import static java.lang.String.format;
 import java.util.Arrays;
 import java.util.List;
 
-public class HelpAction implements ArgumentStrategy {
+public class Help implements ArgumentStrategy {
 	private static final String NEW_LINE = "\n"; 
 	private static final char SPACE = ' ';
 	protected static final String DESCRPTION = "Help, describing functionalities";
@@ -17,7 +17,7 @@ public class HelpAction implements ArgumentStrategy {
 	private List<HelpMessage> messages;
 
 	
-	public HelpAction(List<HelpMessage> messages, ConsumeManagerOutput output) {
+	public Help(List<HelpMessage> messages, ConsumeManagerOutput output) {
 		super();
 		this.messages = messages;
 		this.out = output;

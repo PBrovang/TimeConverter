@@ -5,7 +5,9 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -53,18 +55,17 @@ public class ArgumentConsumerTest {
 			"-c", "C1", "C2", "C3",
 			"-d"
 		};
-		List<? extends ArgumentStrategy> strategyList = Arrays.asList(
-			new MockArgumentStrategy("a"),
-			new MockArgumentStrategy("b", 1),
-			new MockArgumentStrategy("c", 3),
-			new MockArgumentStrategy("d")
-		);
-		consumer = new ArgumentConsumer(strategyList);
+		Map<String, ArgumentStrategy> map = new HashMap<>(4);
+		map.put("a", new MockArgumentStrategy("a"));
+		map.put("b", new MockArgumentStrategy("b", 1));
+		map.put("c", new MockArgumentStrategy("c", 3));
+		map.put("d", new MockArgumentStrategy("d"));
+		consumer = new ArgumentConsumer(map);
 	}
 	
 	@Test(expected = ArgumentException.class)
 	public void testArgumentConsumer() throws Exception {
-		List<? extends ArgumentStrategy> list = Collections.emptyList();
+		Map<String, ArgumentStrategy> list = Collections.emptyMap();
 		consumer = new ArgumentConsumer(list);
 	}
 	

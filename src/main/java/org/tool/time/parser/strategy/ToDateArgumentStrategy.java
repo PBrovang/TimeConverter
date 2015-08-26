@@ -1,57 +1,38 @@
 package org.tool.time.parser.strategy;
 
-import java.util.Date;
-import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.tool.time.parser.AbstractArgumentStrategy;
 import org.tool.time.parser.ArgumentException;
 import org.tool.time.parser.ConsumeOutput;
 
-public class ToDateArgumentStrategy extends AbstractArgumentStrategy implements DateFormatObserver{
+public class ToDateArgumentStrategy extends AbstractArgumentStrategy {
 
-	private final List<Date> values;
-	private DateFormat dateFormat;
 	private final ConsumeOutput output;
 	private final DateFactory factory;
+	private final DateFormatSubject subject;
 	
-	public ToDateArgumentStrategy(String symbols, ConsumeOutput output, DateFactory factory) throws IllegalArgumentException {
+	public ToDateArgumentStrategy(String symbols, ConsumeOutput output, DateFactory factory, DateFormatSubject subject) throws IllegalArgumentException {
 		super(symbols);
 		this.output = output;
-		values = new ArrayList<>(50);
 		this.factory = factory;
+		this.subject = subject;
 	}
 
 	@Override
 	public int consume(int index, String[] arguments) throws ArgumentException {
+		final SimpleDateFormat sdf = subject.getDateFormat();
 		List<String> list = new ArrayList<>(20);
 		list.add(readNextArgument(index, arguments));
 		list.addAll(Arrays.asList(readNextArgumentsUntilFlag(index + 1, arguments)));
-		for (String value : list) 
-			values.add(factory.createDate(value));
-		process();
-		return values.size();
-	}
-
-	protected Date[] getValues() {
-		return values.toArray(new Date[values.size()]);
-	}
-
-	@Override
-	public void update(DateFormat dateFormat) {
-		this.dateFormat = dateFormat;		
-		this.process();
-	}
-
-	private void process() {
-		DateFormat df = this.dateFormat;
-		if (df == null)
-			return;
-		Date[] values = getValues();
-		for (Date date : values) {
-			output.consume(df.format(date));
+		for (String value : list) {
+			Date date = factory.createDate(value);
+			output.consume(sdf.format(date));			
 		}
+		return list.size();
 	}
 }

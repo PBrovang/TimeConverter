@@ -53,19 +53,24 @@ public class HelpMessageTest {
 	
 	@Test
 	public void testEqualsNull() throws Exception {
-		assertFalse(flag.equals(null));
+		assertFalse(help.equals(null));
 	}
 	
 	@Test
 	public void testEqualsDifferentFlag() throws Exception {
-		assertFalse(flag.equals(new HelpMessage("a", text)));
+		assertFalse(help.equals(new HelpMessage("a", text)));
 	}
 	
 	@Test
 	public void testEqualsDifferentText() throws Exception {
-		assertFalse(flag.equals(new HelpMessage(flag, "bummelum")));
+		assertFalse(help.equals(new HelpMessage(flag, "bummelum")));
 	}
 
+	@Test
+	public void testEqualsDifferentClass() throws Exception {
+		assertFalse(help.equals(new Object()));
+	}
+	
 	@Test
 	public void testGetFlag() {
 		assertSame(flag, help.getFlag());

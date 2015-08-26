@@ -21,7 +21,7 @@ public class DateFormatArgumentStrategyTest implements DateFormatObserver {
 	}
 
 	@Override
-	public void update(DateFormat dateFormat) {
+	public void update(SimpleDateFormat dateFormat) {
 		this.dateFormat = dateFormat;				
 	}
 

@@ -11,10 +11,10 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class HelpActionTest implements ConsumeManagerOutput {
+public class HelpTest implements ConsumeManagerOutput {
 	
 	private static StringBuilder loremText;
-	private HelpAction action;
+	private Help help;
 	private List<Object> consumed;
 	private boolean cleared;	
 	
@@ -54,15 +54,15 @@ public class HelpActionTest implements ConsumeManagerOutput {
 			new HelpMessage("lorem", loremText.toString())
 		);
 		ConsumeManagerOutput output = this;
-		this.action = new HelpAction(messages, output);
+		this.help = new Help(messages, output);
 	}
 
 	@Test
 	public void testConsume() throws Exception {
 		String[] arguments = new String[]{"-h"};
-		assertEquals("Offset", 1, action.consume(0, arguments));
+		assertEquals("Offset", 1, help.consume(0, arguments));
 		String[] expecteds = {
-			HelpAction.TITLE,
+			Help.TITLE,
 			"    -h|H      Help, describing functionalities",
 			"    -a        Alpha",
 			"    -g        Gamma",
