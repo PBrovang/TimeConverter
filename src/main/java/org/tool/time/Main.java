@@ -10,7 +10,6 @@ import org.tool.time.parser.ArgumentException;
 import org.tool.time.parser.ArgumentParser;
 import org.tool.time.parser.ArgumentStrategy;
 import org.tool.time.parser.ConsumeManagerOutput;
-import org.tool.time.parser.ConsumeOutput;
 import org.tool.time.parser.Help;
 import org.tool.time.parser.HelpMessage;
 import org.tool.time.parser.strategy.DateFormatArgumentStrategy;
