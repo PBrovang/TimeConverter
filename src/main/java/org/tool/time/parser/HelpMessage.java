@@ -1,17 +1,20 @@
 package org.tool.time.parser;
 
 public class HelpMessage {
-	private final String flag;
+	private static final String FLAG_IS_NULL_EXCEPTION = "Flag can not be null";
+	private final Flag flag;
 	private final String text;
 	
-	public HelpMessage(String flag, String text) {
+	public HelpMessage(Flag flag, String text) throws IllegalArgumentException {
 		super();
-		this.flag    = replaceNullWithEmpty(flag);
-		this.text = replaceNullWithEmpty(text);
+		if (flag == null)
+			throw new IllegalArgumentException(FLAG_IS_NULL_EXCEPTION);
+		this.flag = flag;
+		this.text = (text == null ? "" : text);
 	}
-
-	private static String replaceNullWithEmpty(String text) {
-		return (text == null ? "" : text);
+	
+	public HelpMessage(String value, String text) {
+		this((new Flag(value)), text);
 	}
 
 	@Override
@@ -35,7 +38,7 @@ public class HelpMessage {
 		return true;
 	}
 
-	public String getFlag() {
+	public Flag getFlag() {
 		return flag;
 	}
 
@@ -45,6 +48,6 @@ public class HelpMessage {
 
 	@Override
 	public String toString() {
-		return getClass().getSimpleName() + " [-" + flag + ", " + text + "]";
+		return getClass().getSimpleName() + " [" + flag + ", " + text + "]";
 	}	
 }

@@ -1,8 +1,8 @@
-package org.tool.time;
+package org.tool.time.arguments;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-import java.io.File;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,6 +10,8 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.tool.test.mocks.java.io.MockOutputStream;
+import org.tool.time.arguments.OutputPrinter;
 
 public class OutputPrinterTest {
 
@@ -19,7 +21,7 @@ public class OutputPrinterTest {
 	@Before
 	public void setUp() throws Exception {
 		printed = new ArrayList<>(20);
-		PrintStream out = new PrintStream(new File("bummelum.xml")) {
+		PrintStream out = new PrintStream(new MockOutputStream()){
 			@Override
 			public void println(Object x) {
 				printed.add(x);
@@ -36,7 +38,7 @@ public class OutputPrinterTest {
 		printer.consume(s1);
 		printer.consume(s2);
 		printer.consume(s3);
-		printer.printConsole();
+		printer.executeConsole();
 		assertEquals(Arrays.asList(s1, s2, s3), printed);
 	}
 
@@ -49,7 +51,7 @@ public class OutputPrinterTest {
 		printer.consume(s2);
 		printer.consume(s3);
 		printer.clear();
-		printer.printConsole();
+		printer.executeConsole();
 		assertTrue(printed.isEmpty());
 	}
 

@@ -1,6 +1,6 @@
 package org.tool.time.parser;
 
-import static java.lang.String.format;
+import static org.tool.time.arguments.HelpTexts.HELP_TITLE;
 
 import java.util.Arrays;
 import java.util.List;
@@ -8,14 +8,10 @@ import java.util.List;
 public class Help implements ArgumentStrategy {
 	private static final String NEW_LINE = "\n"; 
 	private static final char SPACE = ' ';
-	protected static final String DESCRPTION = "Help, describing functionalities";
-	protected static final String TITLE = "The desciption of the tool functinalities";
 	private static final String TAB = "    ";
-	private static final String FLAG_PREFIX = "-";
 	private static final String HELP_SYMBOLS = "h|H";
 	private ConsumeManagerOutput out;
 	private List<HelpMessage> messages;
-
 	
 	public Help(List<HelpMessage> messages, ConsumeManagerOutput output) {
 		super();
@@ -29,15 +25,13 @@ public class Help implements ArgumentStrategy {
 	}
 	
 	@Override
-	public int consume(int index, String[] arguments) throws ArgumentException {
+	public int consume(int index, String[] arguments) {
 		final String lineFormat = buildLineFormat(longestFlag() + 1);
 		final String nextLineFormat = buildPadding(lineFormat).concat("%s");
 		out.clear();
-		out.consume(TITLE);
-		out.consume(format(lineFormat, FLAG_PREFIX + getSymbols(), DESCRPTION));
-		
+		out.consume(HELP_TITLE);
 		for(HelpMessage help : messages) {
-			String flag = FLAG_PREFIX + help.getFlag();
+			String flag = help.getFlag().toString();
 			String text = help.getText();
 			String[] lines = text.split(NEW_LINE);
 			for (int lineIndex = 0; lineIndex < lines.length; lineIndex++) {
@@ -70,7 +64,7 @@ public class Help implements ArgumentStrategy {
 	private int longestFlag() {
 		int result = getSymbols().length();
 		for (HelpMessage help : messages) 
-			result = Math.max(result, help.getFlag().length());
+			result = Math.max(result, help.getFlag().toString().length());
 		return result;
 	}
 

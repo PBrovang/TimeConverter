@@ -1,12 +1,12 @@
-package org.tool.time;
+package org.tool.time.arguments;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertSame;
 
 import java.text.SimpleDateFormat;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.tool.time.arguments.DateFormatHolder;
 
 public class DateFormatHolderTest {
 	private DateFormatHolder holder;

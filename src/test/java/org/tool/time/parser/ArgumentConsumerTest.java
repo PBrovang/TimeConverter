@@ -48,25 +48,29 @@ public class ArgumentConsumerTest {
 	
 	@Before
 	public void setUpConsumer() throws Exception {
+		Flag a = new Flag('a');
+		Flag b = new Flag('b');
+		Flag c = new Flag('c');
+		Flag d = new Flag('d');
 		actualList = new ArrayList<>(20);
 		arguments = new String[]{
-			"-a",
-			"-b", "beta",
-			"-c", "C1", "C2", "C3",
-			"-d"
+			a.toString(),
+			b.toString(), "beta",
+			c.toString(), "C1", "C2", "C3",
+			d.toString()
 		};
-		Map<String, ArgumentStrategy> map = new HashMap<>(4);
-		map.put("a", new MockArgumentStrategy("a"));
-		map.put("b", new MockArgumentStrategy("b", 1));
-		map.put("c", new MockArgumentStrategy("c", 3));
-		map.put("d", new MockArgumentStrategy("d"));
-		consumer = new ArgumentConsumer(map);
+		Map<Flag, ArgumentStrategy> map = new HashMap<>(4);
+		map.put(a, new MockArgumentStrategy("a"));
+		map.put(b, new MockArgumentStrategy("b", 1));
+		map.put(c, new MockArgumentStrategy("c", 3));
+		map.put(d, new MockArgumentStrategy("d"));
+		consumer = new ArgumentConsumer(null, map);
 	}
 	
-	@Test(expected = ArgumentException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testArgumentConsumer() throws Exception {
-		Map<String, ArgumentStrategy> list = Collections.emptyMap();
-		consumer = new ArgumentConsumer(list);
+		Map<Flag, ArgumentStrategy> map = Collections.emptyMap();
+		consumer = new ArgumentConsumer(null, map);
 	}
 	
 	@Test

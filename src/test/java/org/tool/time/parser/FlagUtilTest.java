@@ -49,6 +49,12 @@ public class FlagUtilTest {
 		FlagUtil.decodeSymbol(argument);
 	}
 	
+	@Test(expected = ArgumentException.class)
+	public void testDecodeSymbolsIntoFlag_IllegalCharacter() throws Exception {
+		String argument = "-a@d";
+		FlagUtil.decodeSymbol2Flag(argument);
+	}
+	
 	@Test
 	public void testIsFlag() throws Exception {
 		assertFalse("Empty argument", FlagUtil.isFlag(""));

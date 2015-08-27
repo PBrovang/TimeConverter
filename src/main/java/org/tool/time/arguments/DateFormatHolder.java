@@ -1,4 +1,4 @@
-package org.tool.time;
+package org.tool.time.arguments;
 
 import java.text.SimpleDateFormat;
 

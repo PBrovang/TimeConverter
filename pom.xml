@@ -31,5 +31,11 @@
 			<version>4.11</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.tool.test</groupId>
+			<artifactId>TestTools</artifactId>
+			<version>0.2</version>		
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 </project>

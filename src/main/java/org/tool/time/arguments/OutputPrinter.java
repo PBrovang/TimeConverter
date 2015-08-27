@@ -1,4 +1,4 @@
-package org.tool.time;
+package org.tool.time.arguments;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -10,6 +10,8 @@ public class OutputPrinter implements ConsumeManagerOutput {
 	
 	private final List<Object> consumed;
 	private final PrintStream out;
+	private String error;
+	
 	
 	public OutputPrinter(PrintStream out) {
 		super();
@@ -17,10 +19,9 @@ public class OutputPrinter implements ConsumeManagerOutput {
 		this.consumed = new ArrayList<>(100);
 	}
 
-	public void printConsole() {
-		for (Object object : consumed) {
-			out.println(object);
-		}
+	@Override
+	public void setError(String message) {
+		this.error = message;
 	}
 	
 	@Override
@@ -33,4 +34,12 @@ public class OutputPrinter implements ConsumeManagerOutput {
 		consumed.clear();		
 	}
 
+	@Override
+	public void executeConsole() {
+		if (error != null)
+			out.println(error);
+		for (Object object : consumed) {
+			out.println(object);
+		}
+	}
 }

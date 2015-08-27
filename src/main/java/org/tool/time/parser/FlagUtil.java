@@ -41,6 +41,15 @@ public class FlagUtil implements FlagHyphen {
 			return argument.substring(1);
 		throw new ArgumentException(String.format(ArgumentConsumer.ILLEGAL_FLAG_EXCEPTION, argument));
 	}
+	
+	public static Flag decodeSymbol2Flag(String argument) throws ArgumentException {
+		try {
+			String symbols = decodeSymbol(argument);
+			return new Flag(symbols);
+		} catch (IllegalArgumentException e) {
+			throw new ArgumentException(String.format(ArgumentConsumer.ILLEGAL_FLAG_EXCEPTION, argument));
+		}
+	}
 
 	private static boolean isValidDash(char ch) {
 		for (int i = 0; i < FlagUtil.dashes.length; i++) {

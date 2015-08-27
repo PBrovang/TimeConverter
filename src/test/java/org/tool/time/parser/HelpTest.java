@@ -1,6 +1,8 @@
 package org.tool.time.parser;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,8 +12,10 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.tool.time.arguments.HelpTexts;
+import org.tool.time.test.MockConsumeManagerOutput;
 
-public class HelpTest implements ConsumeManagerOutput {
+public class HelpTest {
 	
 	private static StringBuilder loremText;
 	private Help help;
@@ -33,19 +37,21 @@ public class HelpTest implements ConsumeManagerOutput {
 		loremText = null;
 	}
 	
-	@Override
-	public void consume(Object object) {
-		//System.out.println(object);
-		consumed.add(object);	
-	}
-
-	@Override
-	public void clear() {
-		this.cleared = true;
-	}
-
 	@Before
 	public void setUp() throws Exception {
+		ConsumeManagerOutput output = new MockConsumeManagerOutput() {
+			@Override
+			public void consume(Object object) {
+				//System.out.println(object);
+				consumed.add(object);	
+			}
+			@Override
+			public void clear() {
+				cleared = true;
+			}
+		};
+		
+		
 		this.cleared = false;
 		this.consumed = new ArrayList<>(5);
 		List<HelpMessage> messages = Arrays.asList(
@@ -53,7 +59,6 @@ public class HelpTest implements ConsumeManagerOutput {
 			new HelpMessage("g", "Gamma"),
 			new HelpMessage("lorem", loremText.toString())
 		);
-		ConsumeManagerOutput output = this;
 		this.help = new Help(messages, output);
 	}
 
@@ -62,20 +67,18 @@ public class HelpTest implements ConsumeManagerOutput {
 		String[] arguments = new String[]{"-h"};
 		assertEquals("Offset", 1, help.consume(0, arguments));
 		String[] expecteds = {
-			Help.TITLE,
-			"    -h|H      Help, describing functionalities",
-			"    -a        Alpha",
-			"    -g        Gamma",
-			"    -lorem    Quisque bibendum sapien vitae nulla volutpat rhoncus.",
-			"              Mauris quis euismod sem. Duis convallis scelerisque",
-			"              metus, eu auctor est commodo eu.",
-			"              Suspendisse euismod neque dui, id elementum nibh",
-			"              convallis in."
+			HelpTexts.HELP_TITLE,
+			"    -a         Alpha",
+			"    -g         Gamma",
+			"    -lorem     Quisque bibendum sapien vitae nulla volutpat rhoncus.",
+			"               Mauris quis euismod sem. Duis convallis scelerisque",
+			"               metus, eu auctor est commodo eu.",
+			"               Suspendisse euismod neque dui, id elementum nibh",
+			"               convallis in."
 			
 		};
 		Object[] actuals = consumed.toArray();
 		assertTrue("Cleared", cleared);
 		assertArrayEquals(expecteds, actuals);
 	}
-
 }

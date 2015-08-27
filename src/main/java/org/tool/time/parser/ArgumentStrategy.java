@@ -4,6 +4,6 @@ public interface ArgumentStrategy {
 	
 	public String getSymbols();
 	
-	public int consume(int index, String[] arguments) throws ArgumentException ;
+	public int consume(int index, String[] arguments) throws ArgumentException;
 	
 }

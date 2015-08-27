@@ -9,12 +9,12 @@ import org.junit.Test;
 public class HelpMessageTest {
 	
 	private HelpMessage help;
-	private String flag;
+	private Flag flag;
 	private String text;
 
 	@Before
 	public void setUp() throws Exception {
-		flag = "s";
+		flag = new Flag("s");
 		text = "Hello Sierra";
 		help = new HelpMessage(flag, text);
 	}
@@ -26,6 +26,12 @@ public class HelpMessageTest {
 		text = null;
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void testConstructorArgumentFlagIsNull() throws Exception {
+		flag = null;
+		help = new HelpMessage(flag, text);
+	}
+	
 	@Test
 	public void testHashCode() {
 		int expected = System.identityHashCode(help);
@@ -34,10 +40,8 @@ public class HelpMessageTest {
 
 	@Test
 	public void testHelpMessage() {
-		flag = "";
 		text = "";
-		help = new HelpMessage(null, null);
-		testGetFlag();
+		help = new HelpMessage(flag, null);
 		testGetText();
 	}
 
